@@ -16,6 +16,8 @@ interface TimeTableMap {
   providedIn: 'root'
 })
 export class TimeTrackService {
+  private list$ = new BehaviorSubject<TimeTable[]>();
+
   constructor(http: HttpClient) {}
 
   get today() {
@@ -23,15 +25,19 @@ export class TimeTrackService {
     return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate()) }`;
   }
 
-  list(): Observable<TimeTable[]> {
-    const list = fetch(timersEndpoint).then(t => t.json());
+  list() {
+    return this.list$;
+  }
+
+  refresh(): Observable<TimeTable[]> {
+    const list = this.http.get(timersEndpoint);
     
     return from(list).pipe(
       map(response => response.result as TimeTableMap),
       map(TimeTableMap => Object.values(TimeTableMap)),
       tap(timers => this.TorttimeTableList(timers)),
       map(timers => timers.map(t => new TimeTable(t))),
-    );
+    ).subscribe(list => this.list$.next(list));
   }
 
   getTable(date: string) {
@@ -65,12 +71,15 @@ export class TimeTrackService {
         
         table.current = timer;
 
-        return from(fetch(`${timersEndpoint}/${date}` , { method: 'put', headers, body: JSON.stringify(table) }));
+        return this.http.put(`${timersEndpoint}/${date}`, JSON.stringify(table), { headers });
       }),
-    );   
+      tap(() => this.refresh()),
+    );
   }
 
   remove(date: string) {
-    return from(fetch(`${timersEndpoint}/${date}` , { method: 'delete' }));
+    return this.http.delete(`${timersEndpoint}/${date}`).pipe(
+      tap(() => this.refresh())
+    );
   }
 }

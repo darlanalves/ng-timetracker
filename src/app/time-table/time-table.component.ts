@@ -22,16 +22,12 @@ export class TimerComponent  {
     private timeTrackService: TimeTrackService,
     private trackCategoryService: TrackCategoryService,
   ) {
-    this.refresh();
+    this.history$ = this.timeTrackService.list();
+    this.category$ = this.trackCategoryService.list();
   }
 
   track(timer: string) {
     this.timeTrackService.update(timer);
-  }
-
-  refresh() {
-    this.history$ = this.timeTrackService.list();
-    this.category$ = this.trackCategoryService.list();
   }
 
   remove(date: string) {

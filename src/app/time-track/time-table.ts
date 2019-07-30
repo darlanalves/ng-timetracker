@@ -31,6 +31,6 @@ export class TimeTable {
         target[category] = hoursOf[category].toFixed(2);
         return target;
       }, {});
-    }
+    };
   }
 }

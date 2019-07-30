@@ -6,7 +6,7 @@ import { Category } from './category';
 
 export class TrackCategoryService {
   constructor(private http: HttpClient) {}
-  
+
   list() {
     return this.http.get<Category>(`${apiEndpoint}/category`);
   }
