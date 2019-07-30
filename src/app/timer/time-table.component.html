@@ -1,0 +1,18 @@
+<table>
+	<thead>
+		<tr>
+			<td>Date</td>
+			<td *ngFor="let timer of timer$ | async">{{ timer }} <button (click)="updateTimer(timer)">&bull;</button></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+		</tr>
+	</thead>
+  <tbody>
+		<tr *ngFor="let timer of (history$ | async)">
+      <td>{{ entry.date }} {{ entry.lastUpdated | date: 'HH:mm' }}</td>
+			<td *ngFor="let timer of timers$ | async" [class.active]="entry.current === timer">{{ timer }}</td>
+      <td>{{ entry.total }}h</td>
+      <td><button (click)="remove(entry.date)">&times;</button></td>
+		</tr>
+	</tbody>
+</table>

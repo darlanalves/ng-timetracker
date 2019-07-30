@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  padding: .5rem 1rem;
+  white-space: nowrap;
+}
+
+button {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  line-height: 1rem;
+  height: 1rem;
+  width: 1.5rem;
+  text-align: center;
+}
+
+thead {
+  background: #eee;
+}
+
+tbody td:not(:first-child) {
+  text-align: right;
+}
+
+.active {
+  background: #ddd;
+}
