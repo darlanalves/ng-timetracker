@@ -8,10 +8,6 @@ const headers = { 'Content-Type': 'application/json' };
 const leftpad = (n: number) => n < 10 ? String('0' + n) : String(n);
 const timersEndpoint = `${dataEndpoint}/timers`;
 
-interface TimeTableMap {
-  [k: string]: TimeTable;
-}
-
 @Injectable({ 
   providedIn: 'root'
 })
@@ -30,14 +26,10 @@ export class TimeTrackService {
   }
 
   refresh(): Observable<TimeTable[]> {
-    const list = this.http.get(timersEndpoint);
-    
-    return from(list).pipe(
-      map(response => response.result as TimeTableMap),
-      map(TimeTableMap => Object.values(TimeTableMap)),
-      tap(timers => this.TorttimeTableList(timers)),
+    return this.http.get(timersEndpoint).pipe(
+      map(response => Object.values(response.result)),
       map(timers => timers.map(t => new TimeTable(t))),
-    ).subscribe(list => this.list$.next(list));
+    ).pipe(this.list$);
   }
 
   getTable(date: string) {

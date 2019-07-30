@@ -23,14 +23,16 @@ export class TimeTable {
   }
 
   toJSON() {
+    const hours = Object.keys(this.hours).reduce((target, category, hoursOf) => {
+      target[category] = hoursOf[category].toFixed(2);
+      return target;
+    }, {});
+
     return {
       lastUpdated: this.lastUpdated,
       date: this.date,
       current: this.current,
-      hours: Object.keys(this.hours).reduce((target, category, hoursOf) => {
-        target[category] = hoursOf[category].toFixed(2);
-        return target;
-      }, {});
+      hours
     };
   }
 }
