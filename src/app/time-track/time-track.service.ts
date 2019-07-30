@@ -4,10 +4,7 @@ import { of, from, Observable } from 'rxjs';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 import { TimeTable } from './time-table';
 
-const headers = {
-  'Content-Type': 'application/json',
-};
-
+const headers = { 'Content-Type': 'application/json' };
 const leftpad = (n: number) => n < 10 ? String('0' + n) : String(n);
 const timersEndpoint = `${dataEndpoint}/timers`;
 
@@ -26,7 +23,7 @@ export class TimeTrackService {
     return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate()) }`;
   }
 
-  getHistory(): Observable<TimeTable[]> {
+  list(): Observable<TimeTable[]> {
     const list = fetch(timersEndpoint).then(t => t.json());
     
     return from(list).pipe(

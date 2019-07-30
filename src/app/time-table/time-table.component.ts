@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { TimerService, TimerTable } from '../timer.service';
+import { TimeTable } from '../time-track/time-table';
+import { Category } from '../time-track/category';
+import { TimeTrackService } from '../time-track/time-track.service';
+import { TrackCategoryService } from '../time-track/track-category.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -8,28 +11,32 @@ import { Observable } from 'rxjs';
   styleUrls: ['./time-table.component.scss']
 })
 export class TimerComponent  {
-  history$: Observable<TimerTable[]>;
+  history$: Observable<TimeTable[]>;
+  category$: Observable<Category[]>;
 
   get today() {
     return this.timeTrackService.today;
   }
 
-  constructor(private timeTrackService: TimerService) {
+  constructor(
+    private timeTrackService: TimeTrackService,
+    private trackCategoryService: TrackCategoryService,
+  ) {
     this.refresh();
   }
 
-  updateTimer(timer: string) {
-    this.timeTrackService.update(timer).subscribe(() => this.refresh());
+  track(timer: string) {
+    this.timeTrackService.update(timer);
   }
 
   refresh() {
-    this.history$ = this.timeTrackService.getHistory();
-    this.timers$ = this.timeTrackService.getTimers();
+    this.history$ = this.timeTrackService.list();
+    this.category$ = this.trackCategoryService.list();
   }
 
   remove(date: string) {
     if (confirm('For sure?')) {
-      this.timeTrackService.remove(date).subscribe(() => this.refresh());
+      this.timeTrackService.remove(date);
     }
   }
 }
