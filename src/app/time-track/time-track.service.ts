@@ -15,22 +15,22 @@ const timersEndpoint = `${apiEndpoint}/timers`;
 export class TimeTrackService {
   private list$ = new BehaviorSubject<TimeTable[]>([]);
 
-  constructor(http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   get today() {
     const d = new Date();
     return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate()) }`;
   }
 
-  list() {
+  list(): Observable<TimeTable[]> {
     return this.list$;
   }
 
-  refresh(): Observable<TimeTable[]> {
-    return this.http.get(timersEndpoint).pipe(
-      map(response => Object.values(response.result)),
+  refresh() {
+    this.http.get(timersEndpoint).pipe(
+      map((response: { [k: string]: TimeTable; }) => Object.values(response.result)),
       map(timers => timers.map(t => new TimeTable(t))),
-    ).pipe(this.list$);
+    ).subscribe(table => this.list$.next(table));
   }
 
   getTable(date: string) {

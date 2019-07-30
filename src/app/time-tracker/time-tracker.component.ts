@@ -9,4 +9,16 @@ import { TrackCategoryService } from '../time-track/track-category.service';
 export class TimeTrackerComponent {
   categories$ = this.trackCategoryService.list();
   constructor(private trackCategoryService: TrackCategoryService) {}
+
+  removeCategory(category: Category) {
+    this.trackCategoryService.remove(category.id);
+  }
+
+  addCategory() {
+    const name = prompt('New category:', '').trim();
+    
+    if (!name) { return; }
+
+    this.trackCategoryService.create(name);
+  }
 }

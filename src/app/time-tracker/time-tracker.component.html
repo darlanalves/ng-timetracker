@@ -1,3 +1,9 @@
-<p>
-time-tracker works!
-</p>
+<ul class="list">
+  <li class="list__item roster" *ngFor="let category of categories$ | async">
+    <span>{{ category.name }}</span>
+    <button (click)="removeCategory(category)">&times;</button>
+  </li>
+</ul>
+<div class="btn-group">
+  <button class="btn-group__item" (click)="addCategory()">+</button>
+</div>

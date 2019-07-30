@@ -2,12 +2,12 @@ export class TimeTable {
   lastUpdated = Date.now();
   date: string;
   current: string;
-  hours: { [category: string]: string; } = {};
+  hours: { [category: string]: string | number; } = {};
 
   constructor(properties: Partial<TimeTable>) {
     Object.assign(this, properties);
     Object.keys(this.hours).forEach(category => {
-      this.hours[category] *= 1;
+      this.hours[category] = Number(this.hours[category]);
     });
   }
 

@@ -1,0 +1,37 @@
+/* Add application styles & imports to this file! */
+html, body {
+  font-family: "PT Sans", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.roster {
+  display: flex;
+
+  &__item {
+    flex-grow: 1;
+  } 
+}
+
+.list {
+  list-style: none;
+  width: 100%;
+
+  &__item {
+    line-height: 1.5rem;
+  }
+}
+
+.btn-group {
+  display: flex;
+  align-items: flex-start;
+  margin-left: -1rem;
+
+  &__item {
+    margin-left: 1rem;
+  }
+}
