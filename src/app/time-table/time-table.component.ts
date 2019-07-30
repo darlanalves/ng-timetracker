@@ -5,26 +5,31 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'time-table',
   templateUrl: './time-table.component.html',
-  styleUrls: ['./time-table.scss']
+  styleUrls: ['./time-table.component.scss']
 })
 export class TimerComponent  {
   history$: Observable<TimerTable[]>;
 
-  constructor(private service: TimerService) {
+  get today() {
+    return this.timeTrackService.today;
+  }
+
+  constructor(private timeTrackService: TimerService) {
     this.refresh();
   }
 
   updateTimer(timer: string) {
-    this.service.update(timer).subscribe(() => this.refresh());
+    this.timeTrackService.update(timer).subscribe(() => this.refresh());
   }
 
   refresh() {
-    this.history$ = this.service.history();
+    this.history$ = this.timeTrackService.getHistory();
+    this.timers$ = this.timeTrackService.getTimers();
   }
 
   remove(date: string) {
     if (confirm('For sure?')) {
-      this.service.remove(date).subscribe(() => this.refresh());
+      this.timeTrackService.remove(date).subscribe(() => this.refresh());
     }
   }
 }
