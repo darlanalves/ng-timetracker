@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, from, Observable } from 'rxjs';
+import { of, from, Observable, BehaviorSubject } from 'rxjs';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 import { TimeTable } from './time-table';
+import { apiEndpoint } from '../environment';
 
 const headers = { 'Content-Type': 'application/json' };
 const leftpad = (n: number) => n < 10 ? String('0' + n) : String(n);
-const timersEndpoint = `${dataEndpoint}/timers`;
+const timersEndpoint = `${apiEndpoint}/timers`;
 
 @Injectable({ 
   providedIn: 'root'
 })
 export class TimeTrackService {
-  private list$ = new BehaviorSubject<TimeTable[]>();
+  private list$ = new BehaviorSubject<TimeTable[]>([]);
 
   constructor(http: HttpClient) {}
 

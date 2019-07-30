@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import * as uuid from 'uuid/v4';
 import { map, tap } from 'rxjs/operators';
 import { Category } from './category';
+import { BehaviorSubject } from 'rxjs';
 
 export class TrackCategoryService {
   list$ = new BehaviorSubject<Category[]>([]);

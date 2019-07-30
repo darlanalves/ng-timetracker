@@ -8,7 +8,7 @@ import { TimeTableComponent } from './time-table/time-table.component';
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpClientModule ],
-  declarations: [ AppComponent, TimeTrackComponent, TimeTableComponent ],
+  declarations: [ AppComponent, TimeTrackerComponent, TimeTableComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

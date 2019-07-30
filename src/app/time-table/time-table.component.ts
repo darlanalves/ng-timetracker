@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   templateUrl: './time-table.component.html',
   styleUrls: ['./time-table.component.scss']
 })
-export class TimerComponent  {
+export class TimeTableComponent {
   history$: Observable<TimeTable[]>;
   category$: Observable<Category[]>;
 

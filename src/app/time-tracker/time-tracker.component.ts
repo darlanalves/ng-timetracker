@@ -7,6 +7,6 @@ import { TrackCategoryService } from '../time-track/track-category.service';
   styleUrls: ['./time-tracker.component.scss']
 })
 export class TimeTrackerComponent {
-  categories$ = trackCategoryService.list();
+  categories$ = this.trackCategoryService.list();
   constructor(private trackCategoryService: TrackCategoryService) {}
 }
