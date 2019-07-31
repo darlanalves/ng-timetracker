@@ -3,17 +3,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({ name: 'time' })
 export class TimeFilter implements PipeTransform {
   transform(input: string | number) {
-    input = Number(input) | 0;
+    if (typeof input === 'string') {
+      input = parseFloat(input);
+    }
 
     const hours = Math.floor(input);
-    const minutes = (input - hours) * 60;
+    let minutes = Math.round((input - hours) * 60);
 
     if (!hours && !minutes) {
       return '-';
     }
     
     if (minutes) {
-      return `${hours}h ${minutes}'`;
+      minutes = minutes >= 45 ? 45 : minutes >= 30 ? 30 : 15;
+      return `${hours}h ${minutes}m`;
     }
 
     return `${hours}h`;
