@@ -1,0 +1,14 @@
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 1rem;
+  padding: 0 var(--hspacing);
+}
+
+h1, .h1 {
+  font-size: 2rem;
+}
+
+h2, .h2 {
+  font-size: 1.6rem;
+}
+

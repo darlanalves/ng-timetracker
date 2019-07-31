@@ -1,0 +1,15 @@
+.category-list {
+  list-style: none;
+  width: 100%;
+
+  &__item {
+    line-height: 1.5rem;
+    padding: var(--vspacing) var(--hspacing);
+    border-bottom: 1px solid var(--color-gray-lighter);
+    font-weight: 500;
+
+    &:first-child {
+      border-top: 1px solid var(--color-gray-lighter);
+    }
+  }
+}

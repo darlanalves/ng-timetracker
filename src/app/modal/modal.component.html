@@ -1,0 +1,8 @@
+<div *ngIf="isOpen | async" class="modal">
+	<div class="modal-overlay"></div>
+	<div class="modal-body">
+		<h1 *ngIf="!!modalTitle">{{ modalTitle }}</h1>
+		<button class="modal-btn__close" (click)="closeModal()">&times;</button>
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -1,18 +1,21 @@
-<form class="roster wrapper" [formGroup]="addForm" (ngSubmit)="addCategory()" novalidate>
-  <input type="text" formControlName="newCategory" class="input flex--stretch-2" />
-  <button type="submit" class="btn btn--primary btn-group__item" [disabled]="addForm.controls.newCategory.invalid">add</button>
-</form>
+<div class="card">
+  <modal modalTitle="Category">
+    <form class="roster wrapper" [formGroup]="addForm" (ngSubmit)="addCategory()" novalidate>
+      <input type="text" formControlName="newCategory" class="input flex--stretch-2" />
+      <button type="submit" class="btn btn--primary btn-group__item" [disabled]="addForm.controls.newCategory.invalid">add</button>
+    </form>
+  </modal>
 
-<ng-container *ngIf="timeTable$ | async as timeTable">
-  <ul class="menu">
-    <li class="menu__item roster" *ngFor="let category of (categories$ | async)">
-      <span class="width-50 flex--stretch-4">{{ category.name }}</span>
-      <span class="width-25">{{ timeTable[category.name] }}</span>
-      <div class="nowrap">
-        <button class="btn" (click)="track(category)">track</button>
-        <button class="btn" (click)="removeCategory(category)">&times;</button>
-      </div>
-    </li>
-  </ul>
-</ng-container>
-
+  <ng-container *ngIf="timeTable$ | async as timeTable">
+    <ul class="category-list">
+      <li class="category-list__item roster" *ngFor="let category of (categories$ | async)">
+        <span class="width-50 flex--stretch-4">{{ category.name }}</span>
+        <span class="width-25">{{ timeTable[category.name] }}</span>
+        <div class="nowrap align--right">
+          <button class="btn" (click)="track(category)">track</button>
+          <button class="btn" (click)="removeCategory(category)">&times;</button>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
+</div>
