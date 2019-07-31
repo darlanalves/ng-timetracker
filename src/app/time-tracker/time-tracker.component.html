@@ -1,14 +1,19 @@
-<div class="card">
-  <ng-container *ngIf="timeTable$ | async as timeTable">
-    <ul class="category-list">
-      <li class="category-list__item roster" *ngFor="let category of (categories$ | async)">
-        <span class="width-50 flex--stretch-4">{{ category.name }}</span>
-        <span class="width-25">{{ timeTable[category.name] }}</span>
-        <div class="nowrap align--right">
-          <button class="btn" (click)="track(category)">track</button>
-          <button class="btn" (click)="removeCategory(category)">&times;</button>
-        </div>
-      </li>
-    </ul>
-  </ng-container>
+<div class="card" *ngIf="timeTable$ | async as timeTable">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Category</td>
+        <td>Time</td>
+        <td>&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of (categories$ | async)">
+        <td class="width-50">{{ category.name }}</td>
+        <td>{{ timeTable.hours[category.name] | time }}</td>
+        <td class="nowrap align--right"><button class="btn" (click)="track(category)">track</button></td>
+      </tr>
+    </tbody>
+  </table>
+  {{timeTable | json}}
 </div>

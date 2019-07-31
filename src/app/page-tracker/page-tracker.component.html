@@ -1,4 +1,4 @@
-<app-page icon="add" pageTitle="Categories" (primaryClick)="onAddClick()">
+<app-page icon="add" pageTitle="Time Tracker" (primaryClick)="onAddClick()">
   <modal modalTitle="Category" [name]="'add-category'">
     <form class="roster wrapper" [formGroup]="addForm" (ngSubmit)="addCategory()" novalidate>
       <input type="text" formControlName="newCategory" class="input flex--stretch-2" />

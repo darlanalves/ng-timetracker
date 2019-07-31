@@ -21,7 +21,7 @@ export class TimeTrackService {
 
   get today() {
     const d = new Date();
-    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate() ) }`;
+    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate()-1 ) }`;
   }
 
   list(): Observable<TimeTable[]> {
