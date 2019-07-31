@@ -49,8 +49,8 @@ export class TimeTrackerComponent {
     this.addForm.setValue({ newCategory: '' });
   }
 
-  track(category: Category) {
-    this.timeTrackService.update(category.name)
-      .subscribe(() => this.notifyService.notify(`Tracking ${category.name}`));
+  track({ name }: Category) {
+    this.timeTrackService.update(name)
+      .subscribe(() => this.notifyService.notify(`Tracking ${name}`));
   }
 }

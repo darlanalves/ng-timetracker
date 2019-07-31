@@ -65,6 +65,12 @@ export class TimeTrackService {
         }
         
         table.current = timer;
+        table.hours = {};
+        table.hours.admin = '3.00';
+        table.hours.develop = '0.00';
+        table.hours.other = '0.30';
+        table.hours.refactor = '5.10';
+        table.hours.release = '0.50';
 
         return this.http.put(`${timersEndpoint}/${date}`, JSON.stringify(table), { headers });
       }),
