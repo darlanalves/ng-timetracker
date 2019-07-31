@@ -1,18 +1,25 @@
 <ng-container *ngIf="history$ | async as history">
-  <app-card cardTitle="History">
+  <app-card [cardTitle]="'Last updated: ' + (history[0].lastUpdated | date: 'HH:mm')">
     <table class="table">
       <thead>
         <tr>
           <td>date</td>
-          <td *ngFor="let category of category$ | async">{{ category.name }}</td>
-          <td>&nbsp;</td>
+          <td>last update</td>
+          <td>tracking</td>
+          <td>total</td>
           <td>&nbsp;</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let entry of history">
-          <td>{{ entry.date }} {{ entry.lastUpdated | date: 'HH:mm' }}</td>
-          <td *ngFor="let category of category$ | async" [class.active]="entry.current === category.name">{{ entry.hours[category.name] || '0.00' | time }}</td>
+          <td>{{ entry.date }}</td>
+          <td>{{ entry.lastUpdated | date: 'HH:mm' }}</td>
+          <td>
+              <div class="roster" *ngFor="let category of category$ | async">
+                <span class="flex--stretch-2">{{category.name}}</span>
+                <span>{{ entry.hours[category.name] || 0 | time }}</span>
+              </div>
+          </td>
           <td>{{ entry.total | time }}</td>
           <td class="align--right"><button class="btn btn--primary" (click)="remove(entry.date)">&times;</button></td>
         </tr>
