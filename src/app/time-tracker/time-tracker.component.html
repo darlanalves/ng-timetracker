@@ -1,11 +1,4 @@
 <div class="card">
-  <modal modalTitle="Category">
-    <form class="roster wrapper" [formGroup]="addForm" (ngSubmit)="addCategory()" novalidate>
-      <input type="text" formControlName="newCategory" class="input flex--stretch-2" />
-      <button type="submit" class="btn btn--primary btn-group__item" [disabled]="addForm.controls.newCategory.invalid">add</button>
-    </form>
-  </modal>
-
   <ng-container *ngIf="timeTable$ | async as timeTable">
     <ul class="category-list">
       <li class="category-list__item roster" *ngFor="let category of (categories$ | async)">

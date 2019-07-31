@@ -3,7 +3,7 @@
     <div class="page-header__content">
       <h1>{{pageTitle}}</h1>
     </div>
-    <button *ngIf="!!icon" class="btn btn--action">{{icon}}</button>
+    <button *ngIf="!!icon" class="btn btn--action" (click)="primaryClick.emit($event)">{{icon}}</button>
   </header>
   <section class="page-content">
     <ng-content></ng-content>

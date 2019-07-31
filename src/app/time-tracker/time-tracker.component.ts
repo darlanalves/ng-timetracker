@@ -13,10 +13,6 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./time-tracker.component.scss']
 })
 export class TimeTrackerComponent {
-  addForm = this.fb.group({
-    newCategory: ['', Validators.required]
-  });
-  
   categories$ = this.trackCategoryService.list();
   timeTable$: Observable<TimeTable>;
 
@@ -38,15 +34,6 @@ export class TimeTrackerComponent {
   removeCategory(category: Category) {
     this.trackCategoryService.remove(category.id)
       .subscribe(() => this.notifyService.notify('Removed'));
-  }
-
-  addCategory() {
-    const newCategory = this.addForm.value.newCategory;
-    
-    this.trackCategoryService.create(newCategory)
-      .subscribe(() => this.notifyService.notify('Created'));
-    
-    this.addForm.setValue({ newCategory: '' });
   }
 
   track({ name }: Category) {
