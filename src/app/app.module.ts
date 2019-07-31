@@ -11,12 +11,14 @@ import { ModalComponent } from './modal/modal.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { PageTrackerComponent } from './page-tracker/page-tracker.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
   imports:      [ BrowserModule, ReactiveFormsModule, HttpClientModule, RouterModule,
     RouterModule.forRoot(routes) ],
   declarations: [ AppComponent, TimeTrackerComponent, TimeTableComponent, NotifyComponent, TimeFilter, ModalComponent,
-    PageTrackerComponent ],
+    PageTrackerComponent,
+    PageComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

@@ -1,0 +1,50 @@
+.page {
+  &-header {
+    position: relative;
+    border-top: 1rem solid var(--color-primary-dark);
+    background-color: var(--color-primary);
+    color: var(--color-gray-lightest);
+    height: 10rem;
+    display: flex;
+    
+    &__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 2rem;
+
+      > h1 {
+        font-size: 2.25rem;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.btn--action {
+  font-family: 'Material Icons';
+  position: absolute;
+  cursor: pointer;
+  background-color: var(--color-accent);
+  border: 0;
+  color: var(--color-gray-lightest);
+  box-shadow: 0 3px 10px rgba(0,0,0,.23), 0 3px 10px rgba(0,0,0,.16);
+  outline: 0;
+  text-align: center;
+  border-radius: 100%;
+  font-size: 1.625rem;
+  line-height: 1.625rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  padding: 1rem;
+  bottom: -1.25rem;
+  right: 1.625rem;
+  transition: all .1s ease;
+
+  &:hover {
+    height: 4rem;
+    width: 4rem;
+    bottom: -1.875rem;
+    right: 1.375rem;
+  }
+}

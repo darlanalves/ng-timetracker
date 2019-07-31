@@ -28,28 +28,3 @@
   padding: var(--vspacing) 0;
   margin: var(--vspacing) var(--hspacing);
 }
-
-.page {
-  &-header {
-    border-top: 1rem solid var(--color-primary-dark);
-    background-color: var(--color-primary);
-    color: var(--color-gray-lightest);
-    height: 15rem;
-    display: flex;
-    
-    &__content {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 8rem;
-
-      > h1 {
-        font-size: 2.25rem;
-      }
-
-      > h2 {
-        font-size: 1rem;
-      }
-    }
-  }
-}

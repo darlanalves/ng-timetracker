@@ -1,0 +1,12 @@
+<div class="page">
+  <header class="page-header">
+    <div class="page-header__content">
+      <h1>{{pageTitle}}</h1>
+    </div>
+    <button *ngIf="!!icon" class="btn btn--action">{{icon}}</button>
+  </header>
+  <section>
+    <ng-content></ng-content>
+  </section>
+</div>
+
