@@ -5,11 +5,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TimeTrackerComponent } from './time-tracker/time-tracker.component';
 import { TimeTableComponent } from './time-table/time-table.component';
+import { TimeFilter } from './time-table/time.filter';
 import { NotifyComponent } from './notify/notify.component';
 
 @NgModule({
   imports:      [ BrowserModule, ReactiveFormsModule, HttpClientModule ],
-  declarations: [ AppComponent, TimeTrackerComponent, TimeTableComponent, NotifyComponent ],
+  declarations: [ AppComponent, TimeTrackerComponent, TimeTableComponent, NotifyComponent, TimeFilter ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
