@@ -1,9 +1,10 @@
 .notification {
   position: absolute;
   z-index: 2;
-  padding: 1rem 2rem;
+  padding: .5rem 1rem;
   background: white;
-  border: 1px solid #ccc;
+  border: 1px solid #1fa538;
+  border-radius: var(--border-radius);
   text-align: center;
   width: 90vw;
   left: 5vw;
