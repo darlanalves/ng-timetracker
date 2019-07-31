@@ -61,7 +61,8 @@ export class TimeTrackService {
 
         const elapsedTime = table.elapsedTime;
         if (elapsedTime || table.current !== timer) {
-          table.hours[table.current || timer] = Number(table.hours[timer] || 0) + elapsedTime;
+          const currentTime = parseFloat(table.hours[table.current || timer] + '' || '0');
+          table.hours[table.current || timer] = currentTime + elapsedTime;
           table.lastUpdated = Date.now();
         }
         
