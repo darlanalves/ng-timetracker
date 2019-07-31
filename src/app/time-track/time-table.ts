@@ -15,7 +15,7 @@ export class TimeTable {
     const elapsedSeconds = Math.floor((Date.now() - this.lastUpdated) / 1000);
     const hours = Math.round(elapsedSeconds / 3600 * 10) / 10;
     
-    return hours > 0.25 ? hours : 0;
+    return hours > 0.1 ? hours : 0;
   }
 
   get total() {
