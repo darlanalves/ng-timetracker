@@ -22,7 +22,10 @@ export class TrackCategoryService {
 
   refresh() {
     return this.http.get<any>(`${apiEndpoint}/category`)
-      .pipe(map(response => Object.values(response.result)))
+      .pipe(
+        map(response => Object.values(response.result)),
+        tap(list => list.sort((a, b) => a.name < b.name ? -1 : 1)),
+      )
       .subscribe(value => this.list$.next(value));
   }
 
