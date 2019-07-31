@@ -10,6 +10,10 @@ html, body {
   font-size: 16px;
 }
 
+body {
+  border-top: 20px solid var(--color-primary-dark);
+}
+
 h1, h2, h3, h4, h5, h6, .title {
   font-family: 'Quicksand', sans-serif;
   margin-bottom: 1rem;

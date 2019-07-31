@@ -11,7 +11,7 @@ import { uid } from '../uid';
 })
 export class TrackCategoryService {
   list$ = new BehaviorSubject<Category[]>([]);
-  
+
   constructor(private http: HttpClient) {
     this.refresh();
   }

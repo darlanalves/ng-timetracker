@@ -5,6 +5,7 @@ import { NotifyService } from '../notify/notify.service';
 import { Category } from '../time-track/category';
 import { TimeTable } from '../time-track/time-table';
 import { Observable } from 'rxjs';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'time-tracker',
@@ -12,6 +13,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./time-tracker.component.scss']
 })
 export class TimeTrackerComponent {
+  addForm = this.fb.group({
+    newCategory: ['', Validators.required]
+  });
+  
   categories$ = this.trackCategoryService.list();
   timeTable$: Observable<TimeTable>;
 
@@ -21,6 +26,7 @@ export class TimeTrackerComponent {
     private trackCategoryService: TrackCategoryService,
     private timeTrackService: TimeTrackService,
     private notifyService: NotifyService,
+    private fb: FormBuilder,
   ) {
     this.updateTimeTable();
   }
@@ -30,13 +36,17 @@ export class TimeTrackerComponent {
   }
 
   removeCategory(category: Category) {
-    this.trackCategoryService.remove(category.id);
+    this.trackCategoryService.remove(category.id)
+      .subscribe(() => this.notifyService.notify('Removed'));
   }
 
   addCategory() {
-    this.trackCategoryService.create(this.newCategory)
+    const newCategory = this.addForm.controls.newCategory.value;
+    
+    this.trackCategoryService.create(newCategory)
       .subscribe(() => this.notifyService.notify('Created'));
-    this.newCategory = '';
+    
+    this.addForm.setValue({ newCategory: '' });
   }
 
   track(category: Category) {

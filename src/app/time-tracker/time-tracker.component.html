@@ -1,7 +1,7 @@
-<div class="roster wrapper">
-  <input type="text"  class="input flex--stretch-2" [(ngModel)]="newCategory" />
-  <button class="btn btn--primary btn-group__item" [disabled]="!newCategory.trim()" (click)="addCategory()">+</button>
-</div>
+<form class="roster wrapper" [formGroup]="addForm" (ngSubmit)="addCategory()" novalidate>
+  <input type="text" formControlName="newCategory" class="input flex--stretch-2" />
+  <button type="submit" class="btn btn--primary btn-group__item" [disabled]="addForm.controlss.newCategory.invalid">add</button>
+</form>
 
 <ng-container *ngIf="timeTable$ | async as timeTable">
   <ul class="menu">
