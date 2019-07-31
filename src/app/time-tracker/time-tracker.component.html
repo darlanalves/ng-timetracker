@@ -11,7 +11,11 @@
       <tr *ngFor="let category of (categories$ | async)">
         <td class="width-50">{{ category.name }}</td>
         <td>{{ timeTable.hours[category.name] | time }}</td>
-        <td class="nowrap align--right"><button class="btn" (click)="track(category)">track</button></td>
+        <td class="nowrap align--right">
+          <button class="btn" [class.btn--primary]="timeTable.current === category.name" (click)="track(category)">
+            <span class="material-icons">alarm</span>
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
