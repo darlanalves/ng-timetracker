@@ -12,13 +12,29 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { PageTrackerComponent } from './page-tracker/page-tracker.component';
 import { PageComponent } from './page/page.component';
+import { CardComponent } from './card/card.component';
+import { PageHistoryComponent } from './page-history/page-history.component';
 
 @NgModule({
-  imports:      [ BrowserModule, ReactiveFormsModule, HttpClientModule, RouterModule,
+  imports:      [ 
+    BrowserModule,
+    ReactiveFormsModule, 
+    HttpClientModule, 
+    RouterModule,
     RouterModule.forRoot(routes) ],
-  declarations: [ AppComponent, TimeTrackerComponent, TimeTableComponent, NotifyComponent, TimeFilter, ModalComponent,
+
+  declarations: [ 
+    AppComponent,
+    TimeTrackerComponent,
+    TimeTableComponent,
+    NotifyComponent,
+    TimeFilter,
+    ModalComponent,
     PageTrackerComponent,
-    PageComponent ],
+    PageComponent,
+    CardComponent,
+    PageHistoryComponent ],
+  
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

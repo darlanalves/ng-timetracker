@@ -1,0 +1,13 @@
+.card {
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  padding-bottom: var(--vspacing);
+
+  &__title {
+    font-size: 2rem;
+    line-height: 2rem;
+    margin: 0;
+    padding: var(--vspacing) var(--hspacing);
+    color: var(--color-primary-dark);
+  }
+}

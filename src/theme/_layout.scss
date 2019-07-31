@@ -22,9 +22,23 @@
   padding: 0 var(--hspacing) var(--vspacing);
 }
 
-.card {
-  box-shadow: var(--shadow);
-  border-radius: var(--border-radius);
-  padding: var(--vspacing) 0;
-  margin: var(--vspacing) var(--hspacing);
+.main-menu {
+  background-color: var(--color-primary);
+
+  &__link {
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 3rem;
+    padding: 0.8125rem 1rem;
+    color: var(--color-gray-lightest);
+    border-bottom: 3px solid transparent;
+    opacity: .65;
+
+    &:hover,
+    &--active {
+      opacity: 1;
+      border-bottom-color: var(--color-primary-light);
+    }
+  }
 }
