@@ -8,7 +8,8 @@
   }
 
   thead td {
-    padding: 2rem 1rem .25rem;
+    padding: var(--hspacing) var(--vspacing) .5rem;
+    font-weight: 700;
   }
 
   tbody td {
@@ -20,11 +21,11 @@
   }
 
   td:first-child {
-    padding-left: 2rem;
+    padding-left: var(--hspacing);
   }
 
   td:last-child {
-    padding-right: 2rem;
+    padding-right: var(--hspacing);
   }
 
   thead {

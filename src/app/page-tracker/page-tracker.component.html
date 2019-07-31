@@ -1,9 +1,11 @@
-<app-page icon="add" pageTitle="Time Tracker" (primaryClick)="onAddClick()">
+<app-page pageTitle="Time Tracker" (primaryClick)="onAddClick()">
   <modal modalTitle="Category" [name]="'add-category'">
     <form class="roster wrapper" [formGroup]="addForm" (ngSubmit)="addCategory()" novalidate>
       <input type="text" formControlName="newCategory" class="input flex--stretch-2" />
       <button type="submit" class="btn btn--primary btn-group__item" [disabled]="addForm.controls.newCategory.invalid">add</button>
     </form>
   </modal>
-  <time-tracker></time-tracker>
+  <app-card [cardTitle]="'Tracking for ' + today">
+    <time-tracker></time-tracker>
+  </app-card>
 </app-page>

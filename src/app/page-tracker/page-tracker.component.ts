@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalService } from '../modal/modal.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TimeTrackService } from '../time-track/time-track.service';
 
 @Component({
   selector: 'app-page-tracker',
@@ -14,7 +15,12 @@ export class PageTrackerComponent {
   constructor(
     private modalService: ModalService,
     private fb: FormBuilder,
+    private trackerService: TimeTrackService,
   ) { }
+
+  get today() {
+    return this.trackerService.today;
+  }
 
   onAddClick() {
     this.modalService.open('add-category');

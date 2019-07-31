@@ -21,7 +21,7 @@ export class TimeTrackService {
 
   get today() {
     const d = new Date();
-    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate()-1 ) }`;
+    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate() ) }`;
   }
 
   list(): Observable<TimeTable[]> {
@@ -61,7 +61,7 @@ export class TimeTrackService {
 
         const elapsedTime = table.elapsedTime;
         if (elapsedTime || table.current !== timer) {
-          const currentTime = parseFloat(table.hours[table.current || timer] + '' || '0');
+          const currentTime = parseFloat(table.hours[table.current || timer] + '') || 0;
           table.hours[table.current || timer] = currentTime + elapsedTime;
           table.lastUpdated = Date.now();
         }
