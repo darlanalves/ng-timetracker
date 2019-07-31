@@ -9,7 +9,7 @@
       <span class="width-50 flex--stretch-4">{{ category.name }}</span>
       <span class="width-25">{{ timeTable[category.name] }}</span>
       <div class="nowrap">
-        <button class="btn" [class.btn--primary]="timeTable.current === category.name" (click)="track(category)">track</button>
+        <button class="btn" (click)="track(category)">track</button>
         <button class="btn" (click)="removeCategory(category)">&times;</button>
       </div>
     </li>
