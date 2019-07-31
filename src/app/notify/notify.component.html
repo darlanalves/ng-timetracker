@@ -1,1 +1,1 @@
-<div class="notification" *ngIf="notifications$ | async as notification">{{ notification }}</div>
+<div class="notification" *ngIf="notifications$ | async as notification" (click)="hide()">{{ notification }}</div>

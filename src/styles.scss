@@ -43,6 +43,7 @@ p {
 
   &__item {
     flex-grow: 1;
+    padding-right: .5rem;
   } 
 }
 
@@ -53,7 +54,7 @@ p {
 
   &__item {
     line-height: 1.5rem;
-    padding: .75rem 2rem;
+    padding: .5rem 2rem;
     border-bottom: 1px solid #bbb;
     background-color: #eee;
     font-weight: 500;
@@ -98,6 +99,7 @@ p {
   font-size: 1.4rem;
   border-radius: 4px;
   margin-right: .5rem;
+  overflow: hidden;
 
   &--primary {
     background: var(--color-primary);
@@ -158,4 +160,17 @@ p {
   thead {
     background: #eee;
   }
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+.nowrap {
+  white-space: nowrap;
+  flex-wrap: nowrap;
 }

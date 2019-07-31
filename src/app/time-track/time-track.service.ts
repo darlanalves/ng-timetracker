@@ -44,9 +44,9 @@ export class TimeTrackService {
     );
   }
 
-  private TorttimeTableList(timers: TimeTable[]) {
-    timers.sort((a, b) => a.date < b.date ? 1 : -1);
-  }
+  // private sortTimeTableList(timers: TimeTable[]) {
+  //   timers.sort((a, b) => a.date < b.date ? 1 : -1);
+  // }
 
   update(timer: string) {
     const date = this.today;

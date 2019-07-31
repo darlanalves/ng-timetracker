@@ -12,6 +12,11 @@ export class NotifyService {
     return this.list$;
   }
 
+  hide() {
+    clearTimeout(this.clearTimer);
+    this.list$.next('');
+  }
+
   notify(notification: string) {
     clearTimeout(this.clearTimer);
     this.list$.next(notification);
