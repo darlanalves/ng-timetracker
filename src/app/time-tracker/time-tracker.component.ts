@@ -51,6 +51,9 @@ export class TimeTrackerComponent {
 
   track({ name }: Category) {
     this.timeTrackService.update(name)
-      .subscribe(() => this.notifyService.notify(`Tracking ${name}`));
+      .subscribe(() => {
+        this.notifyService.notify(`Tracking ${name}`);
+        this.trackCategoryService.refresh();
+      });
   }
 }
