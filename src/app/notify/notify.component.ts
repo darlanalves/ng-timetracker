@@ -6,7 +6,7 @@ import { NotifyService } from './notify.service';
   templateUrl: './notify.component.html',
 })
 export class NotifyComponent {
-  notifications$ = this.notifyService.queue();
+  notifications$ = this.notifyService.getQueue();
 
   constructor(private notifyService: NotifyService) {}
 }

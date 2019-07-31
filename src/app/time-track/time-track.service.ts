@@ -15,11 +15,13 @@ const timersEndpoint = `${apiEndpoint}/timers`;
 export class TimeTrackService {
   private list$ = new BehaviorSubject<TimeTable[]>([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.refresh();
+  }
 
   get today() {
     const d = new Date();
-    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate()) }`;
+    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate() -1 ) }`;
   }
 
   list(): Observable<TimeTable[]> {

@@ -11,14 +11,18 @@ import { uid } from '../uid';
 })
 export class TrackCategoryService {
   list$ = new BehaviorSubject<Category[]>([]);
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http: HttpClient) {
+    this.refresh();
+  }
 
   list() {
     return this.list$;
   }
 
   refresh() {
-    return this.http.get<Category[]>(`${apiEndpoint}/category`)
+    return this.http.get<any>(`${apiEndpoint}/category`)
+      .pipe(map(response => Object.values(response.result)))
       .subscribe(value => this.list$.next(value));
   }
 

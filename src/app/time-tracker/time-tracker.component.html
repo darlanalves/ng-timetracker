@@ -1,9 +1,15 @@
-<ul class="list">
-  <li class="list__item roster" *ngFor="let category of categories$ | async">
-    <span>{{ category.name }}</span>
-    <button (click)="removeCategory(category)">&times;</button>
-  </li>
-</ul>
-<div class="btn-group">
-  <button class="btn-group__item" (click)="addCategory()">+</button>
+<div class="roster wrapper">
+  <input type="text"  class="input flex--stretch-2" [(ngModel)]="newCategory" />
+  <button class="btn btn--primary btn-group__item" [disabled]="!newCategory.trim()" (click)="addCategory()">+</button>
 </div>
+
+<ng-container *ngIf="timeTable$ | async as timeTable">
+  <ul class="menu">
+    <li class="menu__item roster" *ngFor="let category of (categories$ | async)">
+      <span class="flex--stretch-2">{{ category.name }}</span>
+      <button class="btn" [class.btn--primary]="timeTable.current === category.name" (click)="track(category)">+</button>
+      <button class="btn" (click)="removeCategory(category)">&times;</button>
+    </li>
+  </ul>
+</ng-container>
+

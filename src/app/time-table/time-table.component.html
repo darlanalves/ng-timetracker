@@ -1,20 +1,21 @@
-<h2>{{ today }}</h2>
-
-<table>
-	<thead>
-		<tr>
-			<td>Date</td>
-			<td *ngFor="let timer of timer$ | async">{{ timer }} <button (click)="updateTimer(timer)">&bull;</button></td>
-      <td>&nbsp;</td>
-      <td>&nbsp;</td>
-		</tr>
-	</thead>
-  <tbody>
-		<tr *ngFor="let timer of (history$ | async)">
-      <td>{{ entry.date }} {{ entry.lastUpdated | date: 'HH:mm' }}</td>
-			<td *ngFor="let timer of timers$ | async" [class.active]="entry.current === timer">{{ timer }}</td>
-      <td>{{ entry.total }}h</td>
-      <td><button (click)="remove(entry.date)">&times;</button></td>
-		</tr>
-	</tbody>
-</table>
+<ng-container *ngIf="history$ | async as history">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>date</td>
+        <td *ngFor="let category of category$ | async">{{ category.name }}</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entry of history">
+        <td>{{ entry.date }} {{ entry.lastUpdated | date: 'HH:mm' }}</td>
+        <td *ngFor="let category of category$ | async" [class.active]="entry.current === category.name">{{ entry[category.name] }}</td>
+        <td>{{ entry.total }}h</td>
+        <td><button class="btn btn--primary" (click)="remove(entry.date)">&times;</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="wrapper">{{ history.length }} items</p>
+</ng-container>

@@ -14,20 +14,12 @@ export class TimeTableComponent {
   history$: Observable<TimeTable[]>;
   category$: Observable<Category[]>;
 
-  get today() {
-    return this.timeTrackService.today;
-  }
-
   constructor(
     private timeTrackService: TimeTrackService,
     private trackCategoryService: TrackCategoryService,
   ) {
     this.history$ = this.timeTrackService.list();
     this.category$ = this.trackCategoryService.list();
-  }
-
-  track(timer: string) {
-    this.timeTrackService.update(timer);
   }
 
   remove(date: string) {

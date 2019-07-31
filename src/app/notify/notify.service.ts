@@ -8,11 +8,11 @@ export class NotifyService {
   list$ = new BehaviorSubject<string>('');
   private clearTimer = 0;
 
-  queue() {
+  getQueue() {
     return this.list$;
   }
 
-  push(notification: string) {
+  notify(notification: string) {
     clearTimeout(this.clearTimer);
     this.list$.next(notification);
     this.clearTimer = setTimeout(() => this.list$.next(''), 5000);
