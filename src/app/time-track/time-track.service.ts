@@ -21,7 +21,7 @@ export class TimeTrackService {
 
   get today() {
     const d = new Date();
-    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate() -1 ) }`;
+    return `${ leftpad(d.getFullYear()) }-${ leftpad(d.getMonth()+1) }-${ leftpad(d.getDate() ) }`;
   }
 
   list(): Observable<TimeTable[]> {
@@ -32,6 +32,7 @@ export class TimeTrackService {
     this.http.get(timersEndpoint).pipe(
       map((response: { [k: string]: TimeTable; }) => Object.values(response.result)),
       map(timers => timers.map(t => new TimeTable(t))),
+      tap(timers => this.sortTimeTableList(timers)),
     ).subscribe(table => this.list$.next(table));
   }
 
@@ -44,9 +45,9 @@ export class TimeTrackService {
     );
   }
 
-  // private sortTimeTableList(timers: TimeTable[]) {
-  //   timers.sort((a, b) => a.date < b.date ? 1 : -1);
-  // }
+  private sortTimeTableList(timers: TimeTable[]) {
+    timers.sort((a, b) => a.date < b.date ? 1 : -1);
+  }
 
   update(timer: string) {
     const date = this.today;
@@ -60,17 +61,11 @@ export class TimeTrackService {
 
         const elapsedTime = table.elapsedTime;
         if (elapsedTime || table.current !== timer) {
-          table[table.current || timer] += elapsedTime;
+          table.hours[timer] = Number(table.hours[timer] || 0) + elapsedTime;
           table.lastUpdated = Date.now();
         }
         
         table.current = timer;
-        table.hours = {};
-        table.hours.admin = '3.00';
-        table.hours.develop = '0.00';
-        table.hours.other = '0.30';
-        table.hours.refactor = '5.10';
-        table.hours.release = '0.50';
 
         return this.http.put(`${timersEndpoint}/${date}`, JSON.stringify(table), { headers });
       }),

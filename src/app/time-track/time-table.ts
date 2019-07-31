@@ -2,12 +2,12 @@ export class TimeTable {
   lastUpdated = Date.now();
   date: string;
   current: string;
-  hours: { [category: string]: string | number; } = {};
+  hours: { [category: string]: number; } = {};
 
   constructor(properties: Partial<TimeTable>) {
     Object.assign(this, properties);
     Object.keys(this.hours).forEach(category => {
-      this.hours[category] = Number(this.hours[category]);
+      this.hours[category] = parseFloat(String(properties.hours[category] || '0'));
     });
   }
 
@@ -19,14 +19,17 @@ export class TimeTable {
   }
 
   get total() {
-    return Object.keys(this.hours).reduce((sum, category, hoursOf) => sum + hoursOf[category], 0);
+    return Object.keys(this.hours)
+      .reduce((sum, category) => sum + this.hours[category], 0)
+      .toFixed(2);
   }
 
   toJSON() {
-    const hours = Object.keys(this.hours).reduce((target, category) => {
+    const hours = {};
+    Object.keys(this.hours).reduce((target, category) => {
       target[category] = Number(this.hours[category]).toFixed(2);
       return target;
-    }, {});
+    }, hours);
 
     return {
       lastUpdated: this.lastUpdated,
