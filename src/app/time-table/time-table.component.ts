@@ -24,7 +24,7 @@ export class TimeTableComponent {
 
   remove(date: string) {
     if (confirm('For sure?')) {
-      this.timeTrackService.remove(date);
+      this.timeTrackService.remove(date).subscribe();
     }
   }
 }
