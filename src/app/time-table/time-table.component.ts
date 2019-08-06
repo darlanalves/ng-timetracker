@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TimeTable } from '../time-track/time-table';
 import { Category } from '../time-track/category';
 import { TimeTrackService } from '../time-track/time-track.service';
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   templateUrl: './time-table.component.html',
   styleUrls: ['./time-table.component.scss']
 })
-export class TimeTableComponent {
+export class TimeTableComponent implements OnInit {
   history$: Observable<TimeTable[]>;
   category$: Observable<Category[]>;
 
@@ -20,6 +20,10 @@ export class TimeTableComponent {
   ) {
     this.history$ = this.timeTrackService.list();
     this.category$ = this.trackCategoryService.list();
+  }
+
+  ngOnInit() {
+    this.timeTrackService.refresh();
   }
 
   remove(date: string) {

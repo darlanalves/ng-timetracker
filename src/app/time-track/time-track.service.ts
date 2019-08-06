@@ -49,7 +49,7 @@ export class TimeTrackService {
     timers.sort((a, b) => a.date < b.date ? 1 : -1);
   }
 
-  update(timer: string) {
+  track(timer: string) {
     const date = this.today;
 
     return this.getTable(date).pipe(
@@ -68,10 +68,15 @@ export class TimeTrackService {
         
         table.current = timer;
 
-        return this.http.put(`${timersEndpoint}/${date}`, JSON.stringify(table), { headers });
+        return this.update(table);
       }),
       tap(() => this.refresh()),
     );
+  }
+
+  update(table: TimeTable) {
+    const date = table.date;
+    return this.http.put(`${timersEndpoint}/${date}`, JSON.stringify(table), { headers });
   }
 
   remove(date: string) {

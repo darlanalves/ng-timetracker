@@ -15,6 +15,9 @@
           <button class="btn" [class.btn--primary]="timeTable.current === category.name" (click)="track(category)">
             <span class="material-icons">alarm</span>
           </button>
+          <button class="btn" (click)="edit(category)">
+            <span class="material-icons">edit</span>
+          </button>
         </td>
       </tr>
     </tbody>

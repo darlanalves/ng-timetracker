@@ -5,6 +5,7 @@ import { NotifyService } from '../notify/notify.service';
 import { Category } from '../time-track/category';
 import { TimeTable } from '../time-track/time-table';
 import { Observable } from 'rxjs';
+import { tap, switchMap } from 'rxjs/operators';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -37,11 +38,22 @@ export class TimeTrackerComponent {
   }
 
   track({ name }: Category) {
-    this.timeTrackService.update(name)
+    this.timeTrackService.track(name)
       .subscribe(() => {
         this.notifyService.notify(`Tracking ${name}`);
         this.trackCategoryService.refresh();
         this.updateTimeTable();
       });
+  }
+
+  edit({ name }: Category) {
+    this.timeTrackService.getTable(this.timeTrackService.today).pipe(
+      tap(table => {
+        const currentValue = table.hours[name];
+        table.hours[name] = parseFloat(prompt('New value', String(currentValue))) || currentValue;
+      }),
+      switchMap(table => this.timeTrackService.update(table))
+    )
+    .subscribe(() => this.updateTimeTable());
   }
 }
