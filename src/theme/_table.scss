@@ -34,7 +34,11 @@
 
   tfoot {
     tr {
-      border-top: 1px solid var(--color-gray-darkest);
+      border-top: 1px solid var(--color-gray-light);
+    }
+
+    td {
+      padding: 1rem;
     }
   }
 }

@@ -16,9 +16,12 @@
   border: 1px solid transparent;
   font-size: 1.4rem;
   border-radius: var(--border-radius);
-  margin-right: calc(var(--hspacing) / 2);
   overflow: hidden;
   box-shadow: var(--shadow);
+
+  &:not(:last-child) {
+    margin-right: calc(var(--hspacing) / 2);
+  }
 
   &--primary {
     background: var(--color-primary);
