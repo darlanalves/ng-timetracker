@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TrackCategoryService } from '../time-track/track-category.service';
 import { TimeTrackService } from '../time-track/time-track.service';
 import { NotifyService } from '../notify/notify.service';
@@ -14,6 +14,8 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./time-tracker.component.scss']
 })
 export class TimeTrackerComponent {
+  @Input() date: string;
+
   categories$ = this.trackCategoryService.list();
   timeTable$: Observable<TimeTable>;
 
@@ -29,7 +31,7 @@ export class TimeTrackerComponent {
   }
 
   private updateTimeTable() {
-    this.timeTable$ = this.timeTrackService.getTable(this.timeTrackService.today);
+    this.timeTable$ = this.timeTrackService.getTable(this.date);
   }
 
   removeCategory(category: Category) {

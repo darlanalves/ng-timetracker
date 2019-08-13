@@ -21,7 +21,14 @@
               </div>
           </td>
           <td>{{ entry.total | time }}</td>
-          <td class="align--right"><button class="btn btn--primary" (click)="remove(entry.date)">&times;</button></td>
+          <td class="nowrap align--right">
+            <button class="btn btn--primary" (click)="edit(entry)">
+              <span class="material-icons">edit</span>
+            </button>
+            <button class="btn" (click)="remove(entry)">
+              <span class="material-icons">delete</span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>

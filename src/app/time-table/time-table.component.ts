@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TimeTable } from '../time-track/time-table';
 import { Category } from '../time-track/category';
 import { TimeTrackService } from '../time-track/time-track.service';
@@ -17,6 +18,7 @@ export class TimeTableComponent implements OnInit {
   constructor(
     private timeTrackService: TimeTrackService,
     private trackCategoryService: TrackCategoryService,
+    private router: Router,
   ) {
     this.history$ = this.timeTrackService.list();
     this.category$ = this.trackCategoryService.list();
@@ -26,9 +28,13 @@ export class TimeTableComponent implements OnInit {
     this.timeTrackService.refresh();
   }
 
-  remove(date: string) {
+  remove(entry: TimeTable) {
     if (confirm('For sure?')) {
-      this.timeTrackService.remove(date).subscribe();
+      this.timeTrackService.remove(entry.date).subscribe();
     }
+  }
+
+  edit(entry: TimeTable) {
+    this.router.navigateByUrl(`/tracker/${entry.date}`);
   }
 }
