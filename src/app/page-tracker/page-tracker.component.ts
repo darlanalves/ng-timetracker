@@ -26,7 +26,6 @@ export class PageTrackerComponent {
     private route: ActivatedRoute,
   ) { 
     this.route.params.subscribe((params => {
-      console.log(params);
       this.date = params.date || this.trackerService.today;
     }));
   }
