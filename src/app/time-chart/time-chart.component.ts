@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TimeTrackService } from '../time-track/time-track.service';
 import { TrackCategoryService } from '../time-track/track-category.service';
-import { IBarChartOptions, IChartistAnimationOptions, IChartistData } from 'chartist';
+import { ILineChartOptions, IChartistAnimationOptions, IChartistData } from 'chartist';
 import { ChartEvent, ChartType } from 'ng-chartist';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class TimeChartComponent implements OnInit {
   chartType: ChartType = 'Line';
   data$: Observable<IChartistData>;
-  options = {
+  options: ILineChartOptions = {
     high: 3,
     low: -3,
     showArea: true,
@@ -23,7 +23,8 @@ export class TimeChartComponent implements OnInit {
     axisX: {
       showLabel: false,
       showGrid: false
-    }
+    },
+    height: 300,
   };
 
   constructor(
@@ -44,12 +45,18 @@ export class TimeChartComponent implements OnInit {
           return output;
         });
 
+        console.log({ 
+          labels: labels.map(label => label.name), 
+          series
+        });
         return { 
           labels: labels.map(label => label.name), 
           series
         };
       })
     );
+
+    this.data$.subscribe(output => console.log(output), output => console.log(output));
   }
 
 }

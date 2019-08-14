@@ -1,7 +1,8 @@
-<x-chartist
-  *ngIf="data$ | async as data"
-  [type]="chartType"
-  [data]="data"
-  [options]="options"
-  [events]="events"
-></x-chartist>
+<div *ngIf="data$ | async as data">
+  <x-chartist
+    [type]="chartType"
+    [data]="data"
+    [options]="options"
+    [events]="events"
+  ></x-chartist>
+</div>
