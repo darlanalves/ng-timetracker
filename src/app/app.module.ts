@@ -14,6 +14,9 @@ import { PageTrackerComponent } from './page-tracker/page-tracker.component';
 import { PageComponent } from './page/page.component';
 import { CardComponent } from './card/card.component';
 import { PageHistoryComponent } from './page-history/page-history.component';
+import { TimeChartComponent } from './time-chart/time-chart.component';
+import { ChartistModule } from 'ng-chartist';
+import { PageChartComponent } from './page-chart/page-chart.component';
 
 @NgModule({
   imports:      [ 
@@ -21,6 +24,7 @@ import { PageHistoryComponent } from './page-history/page-history.component';
     ReactiveFormsModule, 
     HttpClientModule, 
     RouterModule,
+    ChartistModule,
     RouterModule.forRoot(routes) ],
 
   declarations: [ 
@@ -33,7 +37,9 @@ import { PageHistoryComponent } from './page-history/page-history.component';
     PageTrackerComponent,
     PageComponent,
     CardComponent,
-    PageHistoryComponent ],
+    PageHistoryComponent,
+    TimeChartComponent,
+    PageChartComponent ],
   
   bootstrap:    [ AppComponent ]
 })
