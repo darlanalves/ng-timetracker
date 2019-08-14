@@ -3,28 +3,29 @@ import { TimeTrackService } from '../time-track/time-track.service';
 import { TrackCategoryService } from '../time-track/track-category.service';
 import { ILineChartOptions, IChartistAnimationOptions, IChartistData } from 'chartist';
 import { ChartEvent, ChartType } from 'ng-chartist';
-import { forkJoin, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-time-chart',
   templateUrl: './time-chart.component.html',
+  styleUrls: ['./time-chart.component.scss']
 })
 export class TimeChartComponent implements OnInit {
   chartType: ChartType = 'Line';
   data$: Observable<IChartistData>;
   options: ILineChartOptions = {
-    high: 3,
-    low: -3,
-    showArea: true,
-    showLine: false,
+    high: 1,
+    low: 0,
+    showArea: false,
+    showLine: true,
     showPoint: false,
     fullWidth: true,
     axisX: {
-      showLabel: false,
+      showLabel: true,
       showGrid: false
     },
-    height: 300,
+    height: 500,
   };
 
   constructor(
@@ -33,7 +34,7 @@ export class TimeChartComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.data$ = forkJoin(
+    this.data$ = combineLatest(
       this.trackCategoryService.list(),
       this.timeTrackService.list(),
     ).pipe(
@@ -45,10 +46,6 @@ export class TimeChartComponent implements OnInit {
           return output;
         });
 
-        console.log({ 
-          labels: labels.map(label => label.name), 
-          series
-        });
         return { 
           labels: labels.map(label => label.name), 
           series
@@ -56,7 +53,8 @@ export class TimeChartComponent implements OnInit {
       })
     );
 
-    this.data$.subscribe(output => console.log(output), output => console.log(output));
+    this.trackCategoryService.refresh();
+    this.timeTrackService.refresh();
   }
 
 }
