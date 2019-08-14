@@ -1,8 +1,15 @@
 <div *ngIf="data$ | async as data" class="chart">
   <x-chartist
     [type]="chartType"
-    [data]="data"
-    [options]="options"
+    [data]="data.weekly"
+    [options]="weeklyOptions"
+    [events]="events"
+  ></x-chartist>
+
+  <x-chartist
+    type="Bar"
+    [data]="data.total"
+    [options]="totalOptions"
     [events]="events"
   ></x-chartist>
 </div>

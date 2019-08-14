@@ -13,20 +13,27 @@ import { map } from 'rxjs/operators';
 })
 export class TimeChartComponent implements OnInit {
   chartType: ChartType = 'Line';
-  data$: Observable<IChartistData>;
-  options: ILineChartOptions = {
-    high: 1,
+  data$: Observable<{ weekly: IChartistData, total: IChartistData }>;
+  weeklyOptions: ILineChartOptions = {
+    high: 10,
     low: 0,
-    showArea: false,
-    showLine: true,
+    showArea: true,
+    showLine: false,
     showPoint: false,
     fullWidth: true,
     axisX: {
       showLabel: true,
-      showGrid: false
+      showGrid: false,
     },
-    height: 500,
+    axisY: {
+      onlyInteger: true,
+    },
+    height: 300,
   };
+  totalOptions = {
+    distributeSeries: true,
+    height: 300,
+  }
 
   constructor(
     private timeTrackService: TimeTrackService,
@@ -38,23 +45,41 @@ export class TimeChartComponent implements OnInit {
       this.trackCategoryService.list(),
       this.timeTrackService.list(),
     ).pipe(
-      map(([labels, history]) => {
-        const series = history.map(entry => {
-          const output = [];
-          labels.forEach(label => output.push(entry.hours[label.name] || 0));
-          
-          return output;
-        });
+      map(([categories, history]) => {
+        const labels = categories.map(label => label.name);
+        const emptyHours = {};
+        labels.forEach(label => emptyHours[label] = 0);
 
-        return { 
-          labels: labels.map(label => label.name), 
-          series
+        const weekly = history.map(entry => {
+          // const output = [];
+          // labels.forEach(label => output.push(entry.hours[label] || 0));
+          return Object.values({ ...emptyHours, ...entry.hours });
+          
+          // return output;
+        });
+        
+        const weeklySum = history.reduce((output, entry) => {
+          labels.forEach(label => {
+            if (!output[label]) { output[label] = 0; }
+            output[label] += (entry.hours[label] || 0)
+          });
+          return output;
+        }, {});
+
+        const totals = Object.values(weeklySum);
+
+        return {
+          weekly: { 
+            labels,
+            series: weekly,
+          },
+          total: {
+            labels,
+            series: totals,
+          }
         };
       })
     );
-
-    this.trackCategoryService.refresh();
-    this.timeTrackService.refresh();
   }
 
 }
