@@ -35,7 +35,12 @@ export class TimeTrackerComponent implements OnChanges {
   }
 
   private updateTimeTable() {
-    this.timeTable$ = this.timeTrackService.getTable(this.date);
+    if (this.date) {
+      this.timeTable$ = this.timeTrackService.getTable(this.date);
+      return;
+    }
+
+    this.timeTable$ = null;
   }
 
   removeCategory(category: Category) {
