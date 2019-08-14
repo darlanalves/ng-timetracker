@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { TrackCategoryService } from '../time-track/track-category.service';
 import { TimeTrackService } from '../time-track/time-track.service';
 import { NotifyService } from '../notify/notify.service';
@@ -13,7 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './time-tracker.component.html',
   styleUrls: ['./time-tracker.component.scss']
 })
-export class TimeTrackerComponent {
+export class TimeTrackerComponent implements OnChanges {
   @Input() date: string;
 
   categories$ = this.trackCategoryService.list();
@@ -26,8 +26,12 @@ export class TimeTrackerComponent {
     private timeTrackService: TimeTrackService,
     private notifyService: NotifyService,
     private fb: FormBuilder,
-  ) {
-    this.updateTimeTable();
+  ) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.date) {
+      this.updateTimeTable();
+    }
   }
 
   private updateTimeTable() {
@@ -49,7 +53,7 @@ export class TimeTrackerComponent {
   }
 
   edit({ name }: Category) {
-    this.timeTrackService.getTable(this.timeTrackService.today).pipe(
+    this.timeTrackService.getTable(this.date).pipe(
       tap(table => {
         const currentValue = table.hours[name];
         table.hours[name] = parseFloat(prompt('New value', String(currentValue))) || currentValue;
