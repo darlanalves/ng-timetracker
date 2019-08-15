@@ -6,6 +6,8 @@ import { ChartEvent, ChartType } from 'ng-chartist';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+const maxHours = 12;
+
 @Component({
   selector: 'app-time-chart',
   templateUrl: './time-chart.component.html',
@@ -15,10 +17,8 @@ export class TimeChartComponent implements OnInit {
   chartType: ChartType = 'Line';
   data$: Observable<{ weekly: IChartistData, total: IChartistData }>;
   weeklyOptions: ILineChartOptions = {
-    high: 10,
-    low: 0,
     showArea: true,
-    showLine: false,
+    showLine: true,
     showPoint: false,
     fullWidth: true,
     axisX: {
@@ -26,7 +26,7 @@ export class TimeChartComponent implements OnInit {
       showGrid: false,
     },
     axisY: {
-      onlyInteger: true,
+      showLabel: false,
     },
     height: 300,
   };
@@ -43,21 +43,28 @@ export class TimeChartComponent implements OnInit {
   ngOnInit() {
     this.data$ = combineLatest(
       this.trackCategoryService.list(),
-      this.timeTrackService.list(),
+      this.timeTrackService.list().pipe(map(h => h.reverse())),
     ).pipe(
       map(([categories, history]) => {
         const labels = categories.map(label => label.name);
         const emptyHours = {};
         labels.forEach(label => emptyHours[label] = 0);
-
-        const weekly = history.map(entry => {
-          // const output = [];
-          // labels.forEach(label => output.push(entry.hours[label] || 0));
-          return Object.values({ ...emptyHours, ...entry.hours });
-          
-          // return output;
-        });
         
+        const hourRange = Array.from({ length: maxHours }).map((_, i) => i + 1);
+        const days = history.map(entry => entry.date.slice(5));
+        
+        const weekly = labels.map(label => {
+          const series = {
+            name: label,
+            data: history.map(entry => {
+              const value = (entry.hours[label] || 0) / maxHours;
+              return { x: entry.date.slice(5), y: value };
+            })
+          };
+
+          return series;
+        });
+
         const weeklySum = history.reduce((output, entry) => {
           labels.forEach(label => {
             if (!output[label]) { output[label] = 0; }
@@ -70,7 +77,7 @@ export class TimeChartComponent implements OnInit {
 
         return {
           weekly: { 
-            labels,
+            labels: days,
             series: weekly,
           },
           total: {
