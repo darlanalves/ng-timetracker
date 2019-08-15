@@ -43,7 +43,7 @@ export class TimeChartComponent implements OnInit {
   ngOnInit() {
     this.data$ = combineLatest(
       this.trackCategoryService.list(),
-      this.timeTrackService.list().pipe(map(h => h.reverse())),
+      this.timeTrackService.list().pipe(map(h => h.slice(0, 14).reverse())),
     ).pipe(
       map(([categories, history]) => {
         const labels = categories.map(label => label.name);

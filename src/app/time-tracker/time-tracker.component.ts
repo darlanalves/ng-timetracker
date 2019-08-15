@@ -61,7 +61,7 @@ export class TimeTrackerComponent implements OnChanges {
     this.timeTrackService.getTable(this.date).pipe(
       tap(table => {
         const currentValue = table.hours[name];
-        const newValue = prompt('New value', String(currentValue));
+        const newValue = prompt('New value', String(currentValue || 0));
 
         if (newValue !== null) {
           const parsedValue = parseFloat(newValue);
