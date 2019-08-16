@@ -1,8 +1,9 @@
-<nav class="main-menu">
-  <a class="main-menu__link" routerLink="/" routerLinkActive="main-menu__link--active">Tracker</a>
-  <a class="main-menu__link" routerLink="/history" routerLinkActive="main-menu__link--active">History</a>
-  <a class="main-menu__link" routerLink="/chart" routerLinkActive="main-menu__link--active">Chart</a>
-</nav>
-
+<div class="main-menu">
+  <nav class="main-menu__content">
+    <a class="main-menu__link" routerLink="/" routerLinkActive="main-menu__link--active">Tracker</a>
+    <a class="main-menu__link" routerLink="/history" routerLinkActive="main-menu__link--active">History</a>
+    <a class="main-menu__link" routerLink="/chart" routerLinkActive="main-menu__link--active">Chart</a>
+  </nav>
+</div>
 <router-outlet></router-outlet>
 <app-notify></app-notify>

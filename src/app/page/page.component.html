@@ -1,11 +1,9 @@
 <div class="page">
-  <header class="page-header">
-    <div class="page-header__content">
-      <h1>{{pageTitle}}</h1>
-    </div>
+  <header class="page__header">
+    <h1 class="page__title">{{pageTitle}}</h1>
     <button *ngIf="!!icon" class="btn btn--action" (click)="primaryClick.emit($event)">{{icon}}</button>
   </header>
-  <section class="page-content">
+  <section class="page__content">
     <ng-content></ng-content>
   </section>
 </div>

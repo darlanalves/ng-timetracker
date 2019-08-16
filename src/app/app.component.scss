@@ -1,6 +1,11 @@
 .main-menu {
   background-color: var(--color-primary);
 
+  &__content {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+  } 
+
   &__link {
     text-decoration: none;
     font-weight: 500;
