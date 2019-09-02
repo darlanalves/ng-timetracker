@@ -30,7 +30,9 @@ export class TimeTrackService {
 
   refresh() {
     this.http.get(timersEndpoint).pipe(
-      map((response: { [k: string]: TimeTable; }) => Object.values(response.result)),
+      map((response: { [k: string]: TimeTable; }) => {
+        return response.result ? Object.values(response.result) : [];
+      }),
       map(timers => timers.map(t => new TimeTable(t))),
       tap(timers => this.sortTimeTableList(timers)),
     ).subscribe(table => this.list$.next(table));
@@ -41,7 +43,7 @@ export class TimeTrackService {
     
     return from(table).pipe(
       catchError(() => of(new TimeTable({ date: this.today }))),
-      map(response => new TimeTable(response.result)),
+      map(response => new TimeTable(response.result || {})),
     );
   }
 

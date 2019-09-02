@@ -1,5 +1,5 @@
 <ng-container *ngIf="history$ | async as history">
-  <app-card [cardTitle]="'Last updated: ' + (history[0].lastUpdated | date: 'HH:mm')">
+  <app-card *ngIf="history.length" [cardTitle]="'Last updated: ' + (history[0].lastUpdated | date: 'HH:mm')">
     <table class="table">
       <thead>
         <tr>
